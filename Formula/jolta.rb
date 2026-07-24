@@ -1,8 +1,8 @@
 class Jolta < Formula
   desc "Hands-off Java version manager - like Volta, but for Java"
   homepage "https://oneappplatform.github.io/jolta/"
-  url "https://github.com/OneAppPlatform/jolta/archive/refs/tags/v0.5.1.tar.gz"
-  sha256 "19076742c46e15c22408cbce89c4bb08b7bd3b1e88608faa6dd3b60f2c4cf8c2"
+  url "https://github.com/OneAppPlatform/jolta/archive/refs/tags/v0.5.2.tar.gz"
+  sha256 "28fdc8b1a4e266e4a24a82eef411e718d1c57d669e2db7b38ed71b325c598d71"
   license "MIT"
   head "https://github.com/OneAppPlatform/jolta.git", branch: "main"
 
