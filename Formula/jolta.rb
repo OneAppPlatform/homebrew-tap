@@ -1,15 +1,39 @@
 class Jolta < Formula
   desc "Hands-off Java version manager - like Volta, but for Java"
   homepage "https://oneappplatform.github.io/jolta/"
-  url "https://github.com/OneAppPlatform/jolta/archive/refs/tags/v0.5.2.tar.gz"
-  sha256 "28fdc8b1a4e266e4a24a82eef411e718d1c57d669e2db7b38ed71b325c598d71"
+  version "0.5.2"
   license "MIT"
-  head "https://github.com/OneAppPlatform/jolta.git", branch: "main"
 
-  depends_on "rust" => :build
+  head do
+    url "https://github.com/OneAppPlatform/jolta.git", branch: "main"
+
+    depends_on "rust" => :build
+  end
+
+  on_macos do
+    on_arm do
+      url "https://github.com/OneAppPlatform/jolta/releases/download/v#{version}/jolta-aarch64-apple-darwin.tar.gz"
+      sha256 "12bf16c8dbcf4b035445c2306b4dcc023afabe5bfa50c2da17e1a1d88b99d339"
+    end
+    on_intel do
+      url "https://github.com/OneAppPlatform/jolta/releases/download/v#{version}/jolta-x86_64-apple-darwin.tar.gz"
+      sha256 "b608aad9a562896bfc75b5d08061b1ce0b3d9463836c3520e7cb4ca067c76e3f"
+    end
+  end
+
+  on_linux do
+    on_intel do
+      url "https://github.com/OneAppPlatform/jolta/releases/download/v#{version}/jolta-x86_64-unknown-linux-musl.tar.gz"
+      sha256 "6280d0bfa3c8765f307ad0bcb078e48ce546eaa78565ecc22a1e6b42e23fe83d"
+    end
+  end
 
   def install
-    system "cargo", "install", *std_cargo_args
+    if build.head?
+      system "cargo", "install", *std_cargo_args
+    else
+      bin.install "jolta"
+    end
   end
 
   def caveats
