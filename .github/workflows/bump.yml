@@ -23,11 +23,9 @@ jobs:
           tag=$(gh release view --repo OneAppPlatform/jolta --json tagName --jq .tagName)
           ver="${tag#v}"
           cur=$(sed -n 's/^  version "\(.*\)"/\1/p' Formula/jolta.rb)
-          if [ "$ver" = "$cur" ]; then
-            echo "formula already at $ver"
-            exit 0
-          fi
-          echo "bumping $cur -> $ver"
+          # No version early-exit: checksums are re-derived and re-written even
+          # when the version matches, so any corruption self-heals within 6h.
+          echo "formula: $cur, latest release: $ver"
           sed -i "s/^  version \".*\"/  version \"$ver\"/" Formula/jolta.rb
           for target in aarch64-apple-darwin x86_64-apple-darwin aarch64-unknown-linux-musl x86_64-unknown-linux-musl; do
             curl -fsSL -o asset.tar.gz \
@@ -40,5 +38,10 @@ jobs:
           git config user.name "jolta-tap-bot"
           git config user.email "noreply@github.com"
           git add Formula/jolta.rb
-          git commit -m "jolta ${ver}"
-          git push
+          git add Formula/jolta.rb
+          if git diff --cached --quiet; then
+            echo "formula already correct"
+          else
+            git commit -m "jolta ${ver}"
+            git push
+          fi
