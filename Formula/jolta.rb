@@ -13,22 +13,22 @@ class Jolta < Formula
   on_macos do
     on_arm do
       url "https://github.com/OneAppPlatform/jolta/releases/download/v#{version}/jolta-aarch64-apple-darwin.tar.gz"
-      sha256 "8e206c1e6f96c5793a5e96be534d249f7075bb6cd59c55922bbc2f1fec7ad54f"
+      sha256 "b2a455a331a2c32c4887a212006437ef60e8a62a3a47365c1d54ae2de720b517"
     end
     on_intel do
       url "https://github.com/OneAppPlatform/jolta/releases/download/v#{version}/jolta-x86_64-apple-darwin.tar.gz"
-      sha256 "8e206c1e6f96c5793a5e96be534d249f7075bb6cd59c55922bbc2f1fec7ad54f"
+      sha256 "b2a455a331a2c32c4887a212006437ef60e8a62a3a47365c1d54ae2de720b517"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/OneAppPlatform/jolta/releases/download/v#{version}/jolta-aarch64-unknown-linux-musl.tar.gz"
-      sha256 "8e206c1e6f96c5793a5e96be534d249f7075bb6cd59c55922bbc2f1fec7ad54f"
+      sha256 "b2a455a331a2c32c4887a212006437ef60e8a62a3a47365c1d54ae2de720b517"
     end
     on_intel do
       url "https://github.com/OneAppPlatform/jolta/releases/download/v#{version}/jolta-x86_64-unknown-linux-musl.tar.gz"
-      sha256 "8e206c1e6f96c5793a5e96be534d249f7075bb6cd59c55922bbc2f1fec7ad54f"
+      sha256 "b2a455a331a2c32c4887a212006437ef60e8a62a3a47365c1d54ae2de720b517"
     end
   end
 
