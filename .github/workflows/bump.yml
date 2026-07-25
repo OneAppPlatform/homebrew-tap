@@ -1,0 +1,44 @@
+name: Bump formula
+# Keeps the formula in lockstep with jolta releases without any cross-repo
+# credential: this repo's own workflow token pushes to this repo. Runs every
+# 6 hours; trigger manually from the Actions tab for an immediate bump.
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sync formula with latest jolta release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eu
+          tag=$(gh release view --repo OneAppPlatform/jolta --json tagName --jq .tagName)
+          ver="${tag#v}"
+          cur=$(sed -n 's/^  version "\(.*\)"/\1/p' Formula/jolta.rb)
+          if [ "$ver" = "$cur" ]; then
+            echo "formula already at $ver"
+            exit 0
+          fi
+          echo "bumping $cur -> $ver"
+          sed -i "s/^  version \".*\"/  version \"$ver\"/" Formula/jolta.rb
+          for target in aarch64-apple-darwin x86_64-apple-darwin aarch64-unknown-linux-musl x86_64-unknown-linux-musl; do
+            curl -fsSL -o asset.tar.gz \
+              "https://github.com/OneAppPlatform/jolta/releases/download/${tag}/jolta-${target}.tar.gz"
+            sha=$(sha256sum asset.tar.gz | cut -d' ' -f1)
+            # replace the sha256 on the line after this target's url line
+            sed -i "/jolta-${target}\.tar\.gz\"/{n;s/sha256 \".*\"/sha256 \"${sha}\"/;}" Formula/jolta.rb
+          done
+          rm -f asset.tar.gz
+          git config user.name "jolta-tap-bot"
+          git config user.email "noreply@github.com"
+          git add Formula/jolta.rb
+          git commit -m "jolta ${ver}"
+          git push
