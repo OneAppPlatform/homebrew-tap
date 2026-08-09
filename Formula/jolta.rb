@@ -1,5 +1,5 @@
 class Jolta < Formula
-  desc "Hands-off Java version manager - like Volta, but for Java"
+  desc "Automatic per-project JDK switching - like Volta, but for Java"
   homepage "https://oneappplatform.github.io/jolta/"
   version "0.8.4"
   license "MIT"
