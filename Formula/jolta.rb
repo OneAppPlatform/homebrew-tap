@@ -1,7 +1,7 @@
 class Jolta < Formula
   desc "Automatic per-project JDK switching - like Volta, but for Java"
   homepage "https://oneappplatform.github.io/jolta/"
-  version "0.8.5"
+  version "0.8.6"
   license "MIT"
 
   head do
@@ -13,22 +13,22 @@ class Jolta < Formula
   on_macos do
     on_arm do
       url "https://github.com/OneAppPlatform/jolta/releases/download/v#{version}/jolta-aarch64-apple-darwin.tar.gz"
-      sha256 "1470467c487cfa07074231aea932d1b17a183ff3dc17146859aef6a70ff45fd1"
+      sha256 "1deed942d2b30d34d1a2638300f8a73d9bc95d4b55fe7f67d9254aa77a68d25b"
     end
     on_intel do
       url "https://github.com/OneAppPlatform/jolta/releases/download/v#{version}/jolta-x86_64-apple-darwin.tar.gz"
-      sha256 "3545f5ceeaf88456132c1026b0a2737be6d89dfbc797cfb8039e9df38bdbfa89"
+      sha256 "3d55292b04240434df77f6480eb775c2c2815a6c96f43d3f322a4d55cb2faea4"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/OneAppPlatform/jolta/releases/download/v#{version}/jolta-aarch64-unknown-linux-musl.tar.gz"
-      sha256 "9cfd4b1b1d0a364d806e9e6fa58700ffca213e8ef49cd2e814c307641af23811"
+      sha256 "bacc6180ecad3c947acb2c3a57779149a5018dbc4df9217504b2649a58e4fbe9"
     end
     on_intel do
       url "https://github.com/OneAppPlatform/jolta/releases/download/v#{version}/jolta-x86_64-unknown-linux-musl.tar.gz"
-      sha256 "3a7de6417016ad3b484e7dd2bf7cb1c6580675904aacaa3ad795e6df8ed396c4"
+      sha256 "d4aad0281e396dc6fe769eb36e57f05c5f4b7c47a50ff11288ee4c1b7e21b756"
     end
   end
 
